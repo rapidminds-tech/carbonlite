@@ -1,0 +1,7 @@
+node_modules/
+.DS_Store
+*.zip
+store/screenshots/
+submissions_images/
+store/*.py
+.claude/

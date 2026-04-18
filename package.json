@@ -1,0 +1,14 @@
+{
+  "name": "green-engineering",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "vitest run --reporter=verbose",
+    "test:watch": "vitest",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "eslint": "^9.0.0",
+    "vitest": "^3.1.1"
+  }
+}

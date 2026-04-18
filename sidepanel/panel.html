@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carbonlite</title>
+  <link rel="stylesheet" href="panel.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <span class="header-icon">🌿</span>
+      <span class="header-title">Carbonlite</span>
+    </div>
+    <div class="header-actions">
+      <button class="header-btn" id="themeToggle" title="Toggle dark mode">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" id="themeIcon">
+          <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 12.5a5.5 5.5 0 0 1 0-11v11z" fill="currentColor"/>
+        </svg>
+      </button>
+      <button class="header-btn" id="settingsBtn" title="Settings">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M6.5 1L7.1 3.1C7.4 3.2 7.7 3.4 8 3.5L10 2.5L11.5 4L10.5 6C10.6 6.3 10.8 6.6 10.9 6.9L13 7.5V9.5L10.9 10.1C10.8 10.4 10.6 10.7 10.5 11L11.5 13L10 14.5L8 13.5C7.7 13.6 7.4 13.8 7.1 13.9L6.5 16H4.5L3.9 13.9C3.6 13.8 3.3 13.6 3 13.5L1 14.5L-0.5 13L0.5 11C0.4 10.7 0.2 10.4 0.1 10.1L-2 9.5V7.5L0.1 6.9C0.2 6.6 0.4 6.3 0.5 6L-0.5 4L1 2.5L3 3.5C3.3 3.4 3.6 3.2 3.9 3.1L4.5 1H6.5Z" transform="translate(2.5 0)" stroke="currentColor" stroke-width="1.2" fill="none"/>
+          <circle cx="8" cy="8.5" r="2" stroke="currentColor" stroke-width="1.2" fill="none"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Empty State -->
+  <div class="empty-state" id="emptyState">
+    <div class="empty-icon">🌿</div>
+    <p class="empty-title">Navigate to a website</p>
+    <p class="empty-text">to see its carbon footprint.</p>
+  </div>
+
+  <!-- Unsupported Page State -->
+  <div class="empty-state hidden" id="unsupportedState">
+    <div class="empty-icon">⚪</div>
+    <p class="empty-title">Can't measure this page</p>
+    <p class="empty-text">Chrome internal pages and extensions can't be analyzed.</p>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-state hidden" id="loadingState">
+    <div class="loading-spinner"></div>
+    <p class="loading-text">Analyzing page...</p>
+  </div>
+
+  <!-- Main Content -->
+  <main class="main hidden" id="mainContent">
+    <!-- Score Section -->
+    <section class="score-section">
+      <div class="score-gauge-wrapper">
+        <svg class="score-gauge" viewBox="0 0 120 120">
+          <circle class="gauge-bg" cx="60" cy="60" r="45" />
+          <circle class="gauge-fill" id="gaugeFill" cx="60" cy="60" r="45" />
+        </svg>
+        <div class="gauge-center">
+          <span class="score-grade" id="gradeLabel">--</span>
+        </div>
+      </div>
+      <div class="score-meta-row">
+        <div class="score-co2" id="co2Label">0.00g CO2 / visit</div>
+        <canvas class="sparkline" id="sparkline" width="60" height="20" aria-label="CO2 trend sparkline for this domain"></canvas>
+        <span class="sr-only visually-hidden" id="sparklineSrText" aria-live="polite"></span>
+      </div>
+      <div class="budget-warning hidden" id="budgetWarning"></div>
+      <div class="score-bar-container">
+        <div class="score-bar">
+          <div class="score-bar-fill" id="percentileFill"></div>
+        </div>
+        <div class="score-bar-label" id="percentileLabel">Cleaner than 0% of sites</div>
+      </div>
+    </section>
+
+    <!-- Tabs — AC-P4-004: ARIA tab pattern -->
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="score" role="tab" aria-selected="true" aria-controls="tab-score">Score</button>
+      <button class="tab" data-tab="breakdown" role="tab" aria-selected="false" aria-controls="tab-breakdown">Breakdown</button>
+      <button class="tab" data-tab="fixes" role="tab" aria-selected="false" aria-controls="tab-fixes">Fixes</button>
+    </nav>
+
+    <!-- Tab: Score -->
+    <div class="tab-content active" id="tab-score" role="tabpanel">
+      <!-- Resource Summary -->
+      <section class="card">
+        <h3 class="card-title">📊 Resource Summary</h3>
+        <div class="resource-bars" id="resourceBars"></div>
+        <div class="resource-totals">
+          <span id="totalSize">0 KB</span>
+          <span id="totalRequests">0 requests</span>
+        </div>
+      </section>
+
+      <!-- Hosting -->
+      <section class="card">
+        <h3 class="card-title">🏢 Hosting</h3>
+        <div id="hostingInfo">
+          <div class="hosting-status" id="hostingStatus"></div>
+          <div class="hosting-detail" id="hostingDetail"></div>
+        </div>
+      </section>
+
+      <!-- Industry Benchmark -->
+      <section class="card">
+        <h3 class="card-title">📏 Industry Comparison</h3>
+        <select class="benchmark-select" id="benchmarkSelect">
+          <option value="average">Global Average</option>
+          <option value="ecommerce">E-commerce</option>
+          <option value="blog">Blog / Content</option>
+          <option value="saas">SaaS Dashboard</option>
+          <option value="news">News / Media</option>
+          <option value="portfolio">Portfolio / Landing</option>
+          <option value="government">Government</option>
+        </select>
+        <div id="benchmarkComparison"></div>
+      </section>
+
+      <!-- Quick Recommendations -->
+      <section class="card">
+        <h3 class="card-title">
+          🔧 Recommendations
+          <span class="badge" id="recsCount">0</span>
+        </h3>
+        <div id="quickRecs"></div>
+      </section>
+
+      <!-- Trend -->
+      <section class="card">
+        <h3 class="card-title">📈 Trend (7 days)</h3>
+        <canvas id="trendChart" width="280" height="100" aria-label="CO2 emissions trend chart over 7 days"></canvas>
+        <table class="sr-only visually-hidden" id="trendChartTable" aria-label="CO2 trend data"><tbody></tbody></table>
+        <div class="trend-empty hidden" id="trendEmpty">
+          <p>Visit this site again to see trends</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Tab: Breakdown -->
+    <div class="tab-content" id="tab-breakdown" role="tabpanel">
+      <!-- Carbon Treemap -->
+      <section class="card">
+        <h3 class="card-title">📊 Carbon by Resource Type</h3>
+        <div class="treemap" id="treemap"></div>
+      </section>
+
+      <!-- Third-party Scripts -->
+      <section class="card">
+        <h3 class="card-title">🏷️ Third-Party Scripts</h3>
+        <div id="thirdPartyInfo"></div>
+      </section>
+
+      <!-- New vs Returning -->
+      <section class="card">
+        <h3 class="card-title">🔄 New vs Returning Visit</h3>
+        <div id="visitComparison"></div>
+      </section>
+    </div>
+
+    <!-- Tab: Fixes -->
+    <div class="tab-content" id="tab-fixes" role="tabpanel">
+      <div class="fixes-header" id="fixesHeader"></div>
+      <div id="fixesList"></div>
+    </div>
+
+    <!-- Methodology footer — AC-P3-010 -->
+    <section class="card methodology-card" id="methodologySection">
+      <details>
+        <summary class="methodology-toggle">How we calculate — Methodology</summary>
+        <div class="methodology-content">
+          <p>Carbon estimates use the <strong>Sustainable Web Design Model (SWDM v4)</strong>.</p>
+          <p><strong>Energy model:</strong> Data center (0.055 kWh/GB) + Network (0.059) + Device (0.080) = 0.194 kWh/GB.</p>
+          <p><strong>Grid intensity:</strong> 480 gCO2e/kWh global average (Ember 2023 Global Electricity Review). Regional overrides available in settings.</p>
+          <p><strong>Embodied carbon:</strong> +16% for hardware manufacturing (per SWDM v4).</p>
+          <p><a href="https://sustainablewebdesign.org/estimating-digital-emissions/" target="_blank" rel="noopener">Learn more about SWDM v4 →</a></p>
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <!-- Improvement Toast -->
+  <div class="toast hidden" id="improvementToast" aria-live="polite">
+    <div class="toast-icon">↑</div>
+    <div class="toast-content">
+      <div class="toast-title">Score improved!</div>
+      <div class="toast-detail" id="toastDetail"></div>
+    </div>
+  </div>
+
+  <!-- Regression Toast -->
+  <div class="toast toast-warning hidden" id="regressionToast" aria-live="polite">
+    <div class="toast-icon">⚠️</div>
+    <div class="toast-content">
+      <div class="toast-title">Regression detected</div>
+      <div class="toast-detail" id="regressionDetail"></div>
+    </div>
+  </div>
+
+  <script src="../libs/co2.js"></script>
+  <script src="../libs/benchmarks.js"></script>
+  <script src="panel-core.js"></script>
+  <script src="panel-render.js"></script>
+  <script src="panel-breakdown.js"></script>
+  <script src="panel-actions.js"></script>
+</body>
+</html>

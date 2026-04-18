@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carbonlite — Settings</title>
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <div class="header">
+    <span class="header-icon">🌿</span>
+    <h1>Carbonlite — Settings</h1>
+  </div>
+
+  <main id="main-content">
+    <!-- Measurement -->
+    <div class="section">
+      <div class="section-title">Measurement</div>
+      <div class="form-row">
+        <label>Carbon model</label>
+        <select id="carbonModel" disabled>
+          <option value="swdm">Sustainable Web Design v4</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>Your region</label>
+        <select id="region">
+          <option value="auto">Auto-detect (Global average)</option>
+          <option value="us">United States (390 gCO2/kWh)</option>
+          <option value="eu">Europe (270 gCO2/kWh)</option>
+          <option value="uk">United Kingdom (230 gCO2/kWh)</option>
+          <option value="in">India (700 gCO2/kWh)</option>
+          <option value="cn">China (530 gCO2/kWh)</option>
+          <option value="au">Australia (510 gCO2/kWh)</option>
+          <option value="br">Brazil (80 gCO2/kWh)</option>
+          <option value="jp">Japan (460 gCO2/kWh)</option>
+          <option value="de">Germany (340 gCO2/kWh)</option>
+          <option value="fr">France (60 gCO2/kWh)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Appearance -->
+    <div class="section">
+      <div class="section-title">Appearance</div>
+      <div class="form-row">
+        <label>Theme</label>
+        <select id="theme">
+          <option value="auto">Auto (system)</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Behavior -->
+    <div class="section">
+      <div class="section-title">Behavior</div>
+      <div class="form-row">
+        <label>Carbon budget per page</label>
+        <select id="carbonBudget">
+          <option value="0">Disabled</option>
+          <option value="0.3">0.3g (strict)</option>
+          <option value="0.5">0.5g (recommended)</option>
+          <option value="1.0">1.0g (relaxed)</option>
+          <option value="2.0">2.0g (lenient)</option>
+        </select>
+      </div>
+      <div class="checkbox-row">
+        <input type="checkbox" id="showBadge" checked />
+        <label for="showBadge">Show toolbar badge</label>
+      </div>
+      <div class="checkbox-row">
+        <input type="checkbox" id="autoAnalyze" checked />
+        <label for="autoAnalyze">Auto-analyze pages</label>
+      </div>
+      <div class="checkbox-row">
+        <input type="checkbox" id="autoOpen" />
+        <label for="autoOpen">Auto-open side panel on my domains</label>
+      </div>
+    </div>
+
+    <!-- My Domains -->
+    <div class="section">
+      <div class="section-title">My Domains</div>
+      <div class="domain-tags" id="domainTags"></div>
+      <div class="input-row">
+        <input type="text" id="domainInput" placeholder="e.g., staging.myapp.com" />
+        <button class="btn" id="btnAddDomain">+ Add</button>
+      </div>
+    </div>
+
+    <!-- Green Hosting (AC-P12-005) -->
+    <div class="section">
+      <div class="section-title">Green Hosting Check</div>
+      <div class="checkbox-row">
+        <input type="checkbox" id="greenHostingCheck" />
+        <label for="greenHostingCheck">Check green hosting status</label>
+      </div>
+      <div class="disclosure">Sends website hostnames to thegreenwebfoundation.org to verify renewable energy hosting. No other data is shared.</div>
+    </div>
+
+    <!-- Notifications (AC-P12-011) -->
+    <div class="section">
+      <div class="section-title">Notifications</div>
+      <div class="checkbox-row">
+        <input type="checkbox" id="showNotifications" checked />
+        <label for="showNotifications">Show budget and regression alerts</label>
+      </div>
+    </div>
+
+    <!-- Privacy -->
+    <div class="section">
+      <div class="section-title">Privacy</div>
+      <div class="checkbox-row">
+        <input type="checkbox" id="localOnly" checked disabled />
+        <label for="localOnly">All data stored locally (never sent to servers)</label>
+      </div>
+    </div>
+
+    <!-- Data -->
+    <div class="section">
+      <div class="section-title">Data</div>
+      <div class="data-info" id="dataInfo">Loading...</div>
+      <div class="btn-group">
+        <button class="btn" id="btnExport">Export History (JSON)</button>
+        <button class="btn btn-danger" id="btnClear">Clear All Data</button>
+      </div>
+    </div>
+
+    <!-- About -->
+    <div class="section">
+      <div class="section-title">About</div>
+      <div class="about-info">
+        Version: 1.0.0<br />
+        Methodology: Sustainable Web Design Model v4<br />
+        Powered by: CO2.js · Green Web Foundation
+      </div>
+      <div class="about-links">
+        <a class="btn" href="https://github.com/rapidminds-tech/carbonlite/issues" target="_blank" rel="noopener">Report Bug</a>
+        <a class="btn" href="https://github.com/rapidminds-tech/carbonlite/issues/new" target="_blank" rel="noopener">Feature Request</a>
+        <a class="btn" href="../privacy.html" target="_blank" rel="noopener">Privacy Policy</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- AC-P11-001: Custom confirmation modal (replaces window.confirm) -->
+  <div class="confirm-modal hidden" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+    <div class="confirm-modal-content">
+      <p class="confirm-title" id="confirmTitle">Clear all history data?</p>
+      <p class="confirm-text">This cannot be undone. All tracked domains and CO2 history will be permanently deleted.</p>
+      <div class="confirm-actions">
+        <button class="btn" id="btnConfirmCancel">Cancel</button>
+        <button class="btn btn-danger" id="btnConfirmOk">Clear All Data</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="saved-toast" id="savedToast">Settings saved</div>
+
+  <script src="../libs/constants.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

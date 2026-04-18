@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carbonlite — Privacy Policy</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #fafaf9;
+      color: #1c1917;
+      padding: 32px;
+      max-width: 640px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #166534;
+      margin-bottom: 8px;
+    }
+
+    .last-updated {
+      font-size: 13px;
+      color: #78716c;
+      margin-bottom: 28px;
+    }
+
+    h2 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1c1917;
+      margin-top: 24px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-size: 14px;
+      color: #44403c;
+      margin-bottom: 12px;
+    }
+
+    ul {
+      margin: 0 0 12px 20px;
+      font-size: 14px;
+      color: #44403c;
+    }
+
+    li { margin-bottom: 6px; }
+
+    a {
+      color: #166534;
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h1>Privacy Policy</h1>
+  <p class="last-updated">Last updated: April 2026</p>
+
+  <h2>What data we collect</h2>
+  <ul>
+    <li><strong>Resource sizes:</strong> The extension uses the browser Performance API to collect transfer sizes (in bytes) of resources loaded by web pages you visit. This is used to estimate carbon emissions.</li>
+    <li><strong>Hostnames (opt-in only):</strong> If you enable "Check green hosting status" in settings, the hostname (e.g., "example.com") of each page is sent to the <a href="https://www.thegreenwebfoundation.org/" target="_blank" rel="noopener">Green Web Foundation</a> API to check renewable energy hosting. This feature is <strong>disabled by default</strong>. Only the hostname is sent — no full URLs, paths, or query parameters. Responses are cached locally for 24 hours.</li>
+  </ul>
+
+  <h2>What we do NOT collect</h2>
+  <ul>
+    <li>We do not read, store, or transmit your personal browsing content, form data, cookies, or credentials.</li>
+    <li>We do not use any tracking, analytics, or telemetry services.</li>
+    <li>We do not collect or transmit any personally identifiable information.</li>
+  </ul>
+
+  <h2>Where data is stored</h2>
+  <p>All data — including carbon history, settings, and cached hosting lookups — is stored locally on your device using <code>chrome.storage.local</code> and <code>chrome.storage.session</code>. No data is sent to any server controlled by Carbonlite.</p>
+
+  <h2>Incognito mode</h2>
+  <p>In incognito windows, Carbonlite does <strong>not</strong> save any history data, does <strong>not</strong> make external API calls, and discards all tab data when the window closes.</p>
+
+  <h2>Data retention</h2>
+  <p>History entries are automatically deleted after 30 days. Per-domain history is capped at 100 entries. You can clear all data at any time from Settings. Uninstalling the extension removes all stored data.</p>
+
+  <h2>Third-party services</h2>
+  <p>The only external service contacted (when opted in) is the Green Web Foundation API (<code>api.thegreenwebfoundation.org</code>) for green hosting checks. Their privacy policy is available at <a href="https://www.thegreenwebfoundation.org/privacy-policy/" target="_blank" rel="noopener">thegreenwebfoundation.org/privacy-policy</a>.</p>
+
+  <h2>Permissions</h2>
+  <ul>
+    <li><strong>sidePanel:</strong> Display the carbon analysis UI in a persistent side panel.</li>
+    <li><strong>storage:</strong> Persist settings, carbon history, and cached hosting data locally on your device.</li>
+    <li><strong>webNavigation:</strong> Detect page loads to trigger automatic carbon analysis.</li>
+    <li><strong>tabs:</strong> Identify Chrome internal pages (which cannot be analyzed) and respect Incognito privacy.</li>
+    <li><strong>Content script (all websites):</strong> Collect resource transfer sizes via the browser Performance API to calculate carbon emissions. No page content is read.</li>
+    <li><strong>host_permissions (thegreenwebfoundation.org):</strong> Check green hosting status (opt-in only, disabled by default).</li>
+  </ul>
+
+  <h2>Contact</h2>
+  <p>Questions or concerns? Open an issue at <a href="https://github.com/rapidminds-tech/carbonlite/issues" target="_blank" rel="noopener">github.com/rapidminds-tech/carbonlite/issues</a>.</p>
+</body>
+</html>
