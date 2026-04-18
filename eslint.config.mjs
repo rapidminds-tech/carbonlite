@@ -37,6 +37,7 @@ export default [
         location: "readonly",
         getComputedStyle: "readonly",
         matchMedia: "readonly",
+        history: "readonly",
         setTimeout: "readonly",
         clearTimeout: "readonly",
         setInterval: "readonly",
@@ -87,7 +88,7 @@ export default [
       "no-unused-vars": ["error", {
         args: "none",
         caughtErrors: "none",
-        varsIgnorePattern: "^(TOTAL_ENERGY_PER_GB|cachedDPR|el|clearChildren|getCSSVar|showState|trapFocus|previousResult|currentData|render|renderScore|renderSparkline|renderResourceBars|renderHosting|renderBenchmark|renderQuickRecs|renderTrend|drawTrendChart|renderTreemap|renderThirdParty|renderVisitComparison|renderFixes|checkForImprovement|showToast|checkRegression|requestCurrentData)$",
+        varsIgnorePattern: "^(TOTAL_ENERGY_PER_GB|STORAGE_LOW_WATERMARK|cachedDPR|el|clearChildren|getCSSVar|showState|trapFocus|previousResult|currentData|render|renderScore|renderSparkline|renderResourceBars|renderHosting|renderBenchmark|renderQuickRecs|renderTrend|drawTrendChart|renderTreemap|renderThirdParty|renderVisitComparison|renderFixes|checkForImprovement|showToast|checkRegression|requestCurrentData)$",
       }],
       // AC-P6-004: no empty catch blocks
       "no-empty": ["error", { allowEmptyCatch: false }],
