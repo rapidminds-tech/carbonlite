@@ -2,7 +2,6 @@
  * Carbonlite — Side Panel Core
  * DOM helpers, state variables, theme management, tab switching,
  * settings button, modal focus trap, CSS variable reader.
- * AC-P1-011: Zero innerHTML — all DOM built with createElement + textContent.
  */
 
 // ── DOM Helpers (XSS-safe) ────────────────────────

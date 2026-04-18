@@ -2,7 +2,6 @@
  * Carbonlite — Side Panel Breakdown & Toasts
  * renderThirdParty, renderVisitComparison, renderFixes,
  * checkForImprovement, showToast, checkRegression.
- * AC-P1-011: Zero innerHTML — all DOM built with createElement + textContent.
  */
 
 // ── Proportional Treemap ───────────────────────────

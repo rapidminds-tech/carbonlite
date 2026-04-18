@@ -1,8 +1,6 @@
 /**
  * Carbonlite — Side Panel Actions
  * Render, requestCurrentData, message handling, benchmark select, init.
- * AC-P1-011: Zero innerHTML — all DOM built with createElement + textContent.
- * AC-P5: Scope cut — removed PDF export, badge, share image, compare features.
  */
 
 // Benchmark select change

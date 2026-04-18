@@ -2,8 +2,6 @@
  * Carbonlite — Side Panel Render Functions
  * renderScore, renderSparkline, renderResourceBars, renderHosting,
  * renderBenchmark, renderQuickRecs, renderTrend, drawTrendChart.
- * AC-P1-011: Zero innerHTML — all DOM built with createElement + textContent.
- * AC-P4-010: Quick-rec click scrolls to matching fix card.
  * AC-P8-008: Canvas DPR cached once on init — not recalculated per render call.
  */
 const cachedDPR = window.devicePixelRatio || 1; // AC-P8-008: cached DPR
